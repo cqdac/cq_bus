@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.5
+Version: 4.5.2
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+
+    <head>
+        <meta charset="utf-8" />
+        <title>排班预览</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link th:href="@{/assets/global/plugins/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css" />
+        <link th:href="@{/assets/global/plugins/simple-line-icons/simple-line-icons.min.css}" rel="stylesheet" type="text/css" />
+        <link th:href="@{/assets/global/plugins/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+        <link th:href="@{/assets/global/plugins/uniform/css/uniform.default.css}"  rel="stylesheet" type="text/css" />
+        <link th:href="@{/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css}" rel="stylesheet" type="text/css" />
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <link th:href="@{/assets/global/plugins/nouislider/nouislider.min.css}" rel="stylesheet" type="text/css" />
+        <link th:href="@{/assets/global/plugins/nouislider/nouislider.pips.css}" rel="stylesheet" type="text/css" />
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        <link th:href="@{/assets/global/css/components.min.css}" rel="stylesheet" id="style_components" type="text/css" />
+        <link th:href="@{/assets/global/css/plugins.min.css}" rel="stylesheet" type="text/css" />
+        <!-- END THEME GLOBAL STYLES -->
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        <link th:href="@{/assets/layouts/layout/css/layout.min.css}" rel="stylesheet" type="text/css" />
+        <link th:href="@{/assets/layouts/layout/css/themes/darkblue.min.css}" rel="stylesheet" type="text/css" id="style_color" />
+        <link th:href="@{/assets/layouts/layout/css/custom.min.css}" rel="stylesheet" type="text/css" />
+        <link th:href="@{/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css}" rel="stylesheet" type="text/css" />
+        <!-- END THEME LAYOUT STYLES -->
+        <link rel="shortcut icon" href="favicon.ico" />
+        <style>
+            .form-group_self{
+                border-left: 0px;
+            }
+        </style>
+    </head>
+    <!-- END HEAD -->
+
+    <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-sidebar-closed">
+        <!-- BEGIN HEADER -->
+        <div class="page-header navbar navbar-fixed-top">
+            <!-- BEGIN HEADER INNER -->
+            <div class="page-header-inner ">
+                <!-- BEGIN LOGO -->
+                <div class="page-logo">
+                    <a href="view">
+                        <img src="../assets/layouts/layout/img/logo.png" alt="logo" class="logo-default" /> </a>
+                    <div class="menu-toggler sidebar-toggler"> </div>
+                </div>
+                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+            </div>
+            <!-- END HEADER INNER -->
+        </div>
+        <!-- END HEADER -->
+        <!-- BEGIN HEADER & CONTENT DIVIDER -->
+        <div class="clearfix"> </div>
+        <!-- END HEADER & CONTENT DIVIDER -->
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN SIDEBAR -->
+            <div class="page-sidebar-wrapper">
+                <!-- BEGIN SIDEBAR -->
+                <div class="page-sidebar navbar-collapse collapse">
+                    <!-- BEGIN SIDEBAR MENU -->
+                    <ul class="page-sidebar-menu  page-header-fixed page-sidebar-menu-closed" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+                        <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                        <li class="sidebar-toggler-wrapper hide">
+                            <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                            <div class="sidebar-toggler"> </div>
+                            <!-- END SIDEBAR TOGGLER BUTTON -->
+                        </li>
+                        <li class="nav-item start active open">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="icon-home"></i>
+                                <span class="title">主页</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item start active">
+                                    <a href="#" class="nav-link ">
+                                        <i class="icon-bar-chart"></i>
+                                        <span class="selected"></span>
+                                        <span class="title arrow open">发车预览</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- END SIDEBAR MENU -->
+                    <!-- END SIDEBAR MENU -->
+                </div>
+                <!-- END SIDEBAR -->
+            </div>
+            <!-- END SIDEBAR -->
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content">
+                    <!-- END THEME PANEL -->
+                    <!-- BEGIN PAGE BAR -->
+                    <div class="page-bar">
+                        <ul class="page-breadcrumb">
+                            <li>
+                                <a href="index.html">主页</a>
+                                <i class="fa fa-circle"></i>
+                            </li>
+                            <li>
+                                <span>发车预览</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="portlet light form-fit bordered">
+                                <div class="portlet-body form" id="portlet_body_form">
+                                    <form role="form" class="form-horizontal form-bordered" id="syn_form">
+                                        <div class="form-body">
+                                            <div class="form-group">
+                                                <label class="col-md-1 control-label" style="width: 4.1%;margin-left: -12px">线路</label>
+                                                <div class="col-md-1" style="width: 8.2%">
+                                                    <select id="bus_line_num" class="form-control">
+                                                        <option value="0">全部</option>
+                                                        <option value="619" selected>619</option>
+                                                        <option value="877">877</option>
+                                                    </select>
+                                                </div>
+                                                <label class="col-md-1 control-label" style="width: 5.1%;margin-left: -24px">车辆数</label>
+                                                <div class="col-md-1" style="width: 5.8%">
+                                                    <input id="line_num_count" type="text" class="form-control" value="0">
+                                                </div>
+                                                <label class="col-md-1 control-label" style="margin-left: -20px">最大发车间隔</label>
+                                                <div class="col-md-1" style="width: 5.9%">
+                                                    <input type="text" id="maxDispatchGap" class="form-control" value="10">
+                                                </div>
+                                                <label class="col-md-1 control-label" style="margin-left: -20px">最小发车间隔</label>
+                                                <div class="col-md-1" style="width: 5.7%">
+                                                    <input type="text" id="minDispatchGap" class="form-control" value="2">
+                                                </div>
+                                                <label class="col-md-1 control-label" style="width: 7%" id="up_title">上行车辆数</label>
+                                                <div class="col-md-1" style="width: 5.9%">
+                                                    <input type="text" id="numberOfUplinkBuses" class="form-control" value="15">
+                                                </div>
+                                                <label class="col-md-1 control-label" style="width: 7%" id="down_title">下行车辆数</label>
+                                                <div class="col-md-1" style="width: 5.9%">
+                                                    <input type="text" id="numberOfDownlinkBuses" class="form-control" value="10">
+                                                </div>
+                                                <div class="col-md-1" style="width: 7.99%">
+                                                    <div class="checkbox-list form-control" style="width: 116%;">
+                                                        <label>
+                                                            <input type="checkbox">节假日</label>
+                                                    </div>
+                                                </div>
+                                                <!--<label class="col-md-1 control-label">历史方案</label>-->
+                                                <div class="col-md-1">
+                                                    <a class=" btn green btn-outline sbold" style="padding-left: 5px;padding-right: 5px" href='#history_project' id="view_hispty_project" data-toggle='modal'> 查看历史方案 </a>
+                                                </div>
+                                                <div class="col-md-1" style="border-left: 0px">
+                                                    <a class=" btn green btn-outline sbold" style="padding-left: 5px;padding-right: 5px" href='#history_result' id="view_hispty_result" data-toggle='modal'>历史发车效果</a>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-1 control-label" style="width: 7%">权重合计</label>
+                                                <div class="col-md-1" style="width: 4%">
+                                                    <label id="qz_total">1.00</label>
+                                                </div>
+                                                <!--<button type="button" id="wait_time_lock" lock="false" class="btn blue" style="margin-top: 20px">lock</button>-->
+                                                <label class="col-md-1 control-label" style="width: 6.1%" title="乘客等车时间，越大代表越短">等待时间</label>
+                                                <div class="col-md-2">
+                                                    <div id="demo8" class="noUi-danger"></div>
+                                                </div>
+                                                <!--<button type="button" id="fh_xs_lock" lock="false" class="btn blue" style="margin-top: 20px">lock</button>-->
+                                                <label class="col-md-1 control-label" style="width: 6.1%" title="车辆满载度，越大代表满载率越小">负荷系数</label>
+                                                <div class="col-md-2">
+                                                    <div id="demo7" class="noUi-primary margin-bottom-40"></div>
+                                                </div>
+                                                <!--<button type="button" id="yy_cb_lock" lock="false" class="btn blue" style="margin-top: 20px">lock</button>-->
+                                                <label class="col-md-1 control-label" style="width: 6.1%" title="运行成本，越大代表成本越低">运营成本</label>
+                                                <div class="col-md-2">
+                                                    <div id="demo9" class="noUi-primary margin-bottom-40"></div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <input name="searchTime" class="form-control form-control-inline date-picker" style="width: 103px" id="blrz-entry-date-start-xx" size="16" type="text" value="" />
+                                                </div>
+                                                <div class="col-md-1" style="border-left: 0px">
+                                                    <button type="button" id="post_form_syn" style="padding-left: 5px;padding-right: 5px" class="btn green btn-outline sbold">查询发车时间</button>
+                                                </div>
+                                                <!--<label class="col-md-1 control-label"></label>-->
+                                                <!--<button type="button" id="post_form_syn" class="btn green btn-outline sbold" style="margin-top: 20px">查询</button>-->
+                                            </div>
+                                            <div class="dt-buttons">
+                                                <!--<a class="dt-button buttons-print btn dark btn-outline" tabindex="0" aria-controls="sample_0"><span>Print</span></a>-->
+                                                <!--<a class="dt-button buttons-copy buttons-html5 btn red btn-outline" tabindex="0" aria-controls="sample_1"><span>Copy</span></a>-->
+                                                <!--<a class="dt-button buttons-pdf buttons-html5 btn green btn-outline" tabindex="0" aria-controls="sample_1"><span>PDF</span></a>-->
+                                                <!--<a class="dt-button btn yellow btn-outline" tabindex="0" aria-controls="sample_1"><span></span></a>-->
+                                                <a class="dt-button buttons-csv buttons-html5 btn purple btn-outline" tabindex="0" aria-controls="sample_0"><span>CSV</span></a>
+                                                <!--<a class="dt-button buttons-collection buttons-colvis btn dark btn-outline" tabindex="0" aria-controls="sample_1"><span>Columns</span></a>-->
+                                            </div>
+                                            <div class="form-group" id="line_view">
+
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- END PORTLET-->
+                        </div>
+                    </div>
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+            <!-- BEGIN QUICK SIDEBAR -->
+            <a href="javascript:;" class="page-quick-sidebar-toggler">
+                <i class="icon-login"></i>
+            </a>
+            <!-- END QUICK SIDEBAR -->
+        </div>
+        <!-- END CONTAINER -->
+        <!-- BEGIN FOOTER -->
+        <div class="page-footer">
+            <div class="page-footer-inner"> 2018 &copy;
+                <!--<a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase Metronic!</a>-->
+            </div>
+            <div class="scroll-to-top">
+                <i class="icon-arrow-up"></i>
+            </div>
+        </div>
+
+
+        <!--保存方案弹出层-->
+        <div id="responsive" class="modal fade" data-backdrop="static" tabindex="-1" aria-hidden="false">
+            <div class="modal-dialog ">
+                <div class="modal-content ">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title">方案保存</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="bus_depart_project_form">
+                            <input type="hidden" id="projectValue" name="projectValue">
+                            <input type="hidden" id="lineNum" name="lineNum">
+                            <input type="hidden" id="numberOfBuses_s" name="numberOfBuses">
+                            <input type="hidden" id="minDispatchGap_s" name="minDispatchGap">
+                            <input type="hidden" id="maxDispatchGap_s" name="maxDispatchGap">
+                            <input type="hidden" id="wating_time_s" name="watingTime">
+                            <input type="hidden" id="load_factory_s" name="loadFactory">
+                            <input type="hidden" id="operation_cost_s" name="operationCost">
+                            <input type="hidden" id="projectDate" name="projectDate">
+                            <div class="scroller" data-always-visible="1" data-rail-visible1="1">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>方案名称</label>
+                                        <input type="text" id="projectName" name="projectName" class="col-md-12 form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn dark btn-outline">取消</button>
+                        <button type="button" class="btn green" id="bus_depart_project_bt_save" data-dismiss="modal">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--历史方案弹出层-->
+        <div id="history_project" class="modal fade bs-modal-lg" role="dialog" data-backdrop="static" tabindex="-1" aria-hidden="false">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content ">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title" id="history_h4">历史方案</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="search_hisptory_project_form">
+                            <input type="hidden" id="lineNum_search" name="lineNum">
+                            <div class="input-group col-lg-6">
+                                <label class="col-lg-3 col-form-label">
+                                    方案时间:
+                                </label>
+                                <input name="searchTime" class="form-control form-control-inline input-medium date-picker" id="blrz-entry-date-start" size="16" type="text" value="" />
+                                <button type="button" class="btn green" id="bus_depart_project_bt_seach">查询</button>
+                            </div>
+                        </form><br>
+                        <table class="table table-striped table-bordered table-hover table-checkable order-column dataTable no-footer" id="history_project_table" role="grid" aria-describedby="sample_1_info"></table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn dark btn-outline">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--历史发车效果-->
+        <div id="history_result" class="modal fade bs-modal-sm" role="dialog" data-backdrop="static" tabindex="-1" aria-hidden="false">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content ">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title">历史发车效果</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="search_hisptory_result_form">
+                            <!--<input type="hidden" id="lineNum_search_result" name="lineNum">-->
+                            <div class="input-group col-lg-6">
+                                <label class="col-lg-4 col-form-label">
+                                    线路:
+                                </label>
+                                <select id="lineNum_search_result" class="form-control" name="lineNum">
+                                    <option value="0">全部</option>
+                                    <option value="619" selected>619</option>
+                                    <option value="877">877</option>
+                                </select>
+                                <label class="col-lg-4 col-form-label">
+                                    时间:
+                                </label>
+                                <input name="searchTime" class="form-control form-control-inline input-medium date-picker" id="blrz-entry-date-start-result" size="16" type="text" value="" />
+                                <label class="col-lg-4 col-form-label">
+
+                                </label>
+                                <button type="button" class="btn green form-control" id="bus_depart_result_bt_seach" onclick="openNewResult()" data-dismiss="modal">查询</button>
+
+                            </div>
+                        </form><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- END FOOTER -->
+        <!-- BEGIN CORE PLUGINS -->
+        <script th:src="@{/assets/global/plugins/jquery.min.js}" type="text/javascript"></script>
+        <script th:src="@{/assets/global/plugins/bootstrap/js/bootstrap.min.js}" type="text/javascript"></script>
+        <script th:src="@{/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js}" type="text/javascript"></script>
+        <script th:src="@{/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js}" type="text/javascript"></script>
+        <!--<script th:src="@{/assets/global/plugins/jquery.blockui.min.js}" type="text/javascript"></script>-->
+        <script th:src="@{/assets/global/plugins/uniform/jquery.uniform.min.js}" type="text/javascript"></script>
+        <script th:src="@{/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js}" type="text/javascript"></script>
+        <!--<script th:src="@{/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js}" type="text/javascript"></script>-->
+        <!-- END CORE PLUGINS -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <script th:src="@{/assets/global/plugins/nouislider/wNumb.min.js}" type="text/javascript"></script>
+        <script th:src="@{/assets/global/plugins/nouislider/nouislider.min.js}" type="text/javascript"></script>
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL SCRIPTS -->
+        <script th:src="@{/assets/global/scripts/app.min.js}" type="text/javascript"></script>
+        <!-- END THEME GLOBAL SCRIPTS -->
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+        <!-- END PAGE LEVEL SCRIPTS -->
+        <!-- BEGIN THEME LAYOUT SCRIPTS -->
+        <!--<script type="text/javascript">-->
+            <!--document.write("<scr"+"ipt src=\"@{/assets/vendors/base/vendors.bundle.js\"></sc"+"ript>")-->
+        <!--</script>-->
+        <script th:src="@{/assets/vendors/base/vendors.bundle.main.js}" type="text/javascript"></script>
+        <script th:src="@{/assets/demo/default/base/scripts.bundle.js}" type="text/javascript"></script>
+        <script th:src="@{/assets/layouts/layout/scripts/layout.min.js}" type="text/javascript"></script>
+        <script th:src="@{/assets/layouts/layout/scripts/demo.min.js}" type="text/javascript"></script>
+        <!--<script th:src="@{/assets/layouts/global/scripts/quick-sidebar.min.js}" type="text/javascript"></script>-->
+        <!--<script src="./assets/My97DatePicker/WdatePicker.js" type="text/javascript"></script>-->
+        <script th:src="@{/assets/global/scripts/datatable.js}" type="text/javascript"></script>
+        <script th:src="@{/assets/global/plugins/datatables/datatables.min.js}" type="text/javascript"></script>
+        <script th:src="@{/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js}" type="text/javascript"></script>
+        <!--<script th:src="@{/assets/pages/scripts/table-datatables-buttons.min.js}" type="text/javascript"></script>-->
+        <script th:src="@{/assets/pages/scripts/components-nouisliders.min.js}" type="text/javascript"></script>
+        <script th:src="@{/assets/pages/scripts/dataTables.sort.plungin.js}" type="text/javascript"></script>
+        <script th:src="@{/assets/pages/scripts/ext.js}" type="text/javascript"></script>
+        <script th:src="@{/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js}" type="text/javascript"></script>
+        <script th:src="@{/assets/global/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js}" type="text/javascript"></script>
+        <!--<script th:src="@{/assets/pages/scripts/components-date-time-pickers.min.js}" type="text/javascript"></script>-->
+        <!-- END THEME LAYOUT SCRIPTS -->
+    </body>
+
+</html>
