@@ -1,0 +1,1229 @@
+var demo7 ;
+var demo8 ;
+var demo9 ;
+var ComponentsNoUiSliders = function () {
+    var e = function () {
+            var e = document.getElementById("demo2");
+            noUiSlider.create(e, {
+                start: [20],
+                connect: !1,
+                range: {
+                    min: 0,
+                    max: 100
+                }
+            })
+        },
+        n = function () {
+            var e = document.getElementById("demo3");
+            noUiSlider.create(e, {
+                start: [20, 80],
+                connect: !1,
+                range: {
+                    min: 0,
+                    max: 100
+                }
+            });
+            var n = document.createElement("div"),
+                t = e.getElementsByClassName("noUi-base")[0],
+                i = e.getElementsByClassName("noUi-origin");
+            n.className += "connect", t.appendChild(n), e.noUiSlider.on("update", function (e, t) {
+                var o = t ? "right" : "left",
+                    a = i[t].style.left.slice(0, -1);
+                1 === t && (a = 100 - a), n.style[o] = a + "%"
+            })
+        },
+        t = function () {
+            for (var e = document.getElementById("demo4_select"), n = -20; 40 >= n; n++) {
+                var t = document.createElement("option");
+                t.text = n, t.value = n, e.appendChild(t)
+            }
+            var i = document.getElementById("demo4");
+            noUiSlider.create(i, {
+                start: [10, 30],
+                connect: !0,
+                range: {
+                    min: -20,
+                    max: 40
+                }
+            });
+            var o = document.getElementById("demo4_input");
+            i.noUiSlider.on("update", function (n, t) {
+                var i = n[t];
+                t ? o.value = i : e.value = Math.round(i)
+            }), e.addEventListener("change", function () {
+                i.noUiSlider.set([this.value, null])
+            }), o.addEventListener("change", function () {
+                i.noUiSlider.set([null, this.value])
+            })
+        },
+        i = function () {
+            function e(e) {
+                return e.parentElement.style.left
+            }
+            var n = document.getElementById("demo5");
+            noUiSlider.create(n, {
+                connect: !0,
+                behaviour: "tap",
+                start: [500, 4e3],
+                range: {
+                    min: [0],
+                    "10%": [500, 500],
+                    "50%": [4e3, 1e3],
+                    max: [1e4]
+                }
+            });
+            var t = document.getElementById("demo5_lower-value"),
+                i = document.getElementById("demo5_upper-value"),
+                o = n.getElementsByClassName("noUi-handle");
+            n.noUiSlider.on("update", function (n, a) {
+                a ? i.innerHTML = n[a] + ", " + e(o[a]) : t.innerHTML = n[a] + ", " + e(o[a])
+            })
+        },
+        o = function () {
+            function e(e, n) {
+                if (t) {
+                    var a = o === n ? 0 : 1,
+                        d = a ? 0 : 1;
+                    e -= i[d] - i[a], n.noUiSlider.set(e)
+                }
+            }
+
+            function n() {
+                i = [Number(o.noUiSlider.get()), Number(a.noUiSlider.get())]
+            }
+            var t = !1,
+                i = [60, 80],
+                o = document.getElementById("demo6_slider1"),
+                a = document.getElementById("demo6_slider2"),
+                d = document.getElementById("demo6_lockbutton"),
+                r = document.getElementById("demo6_slider1-span"),
+                l = document.getElementById("demo6_slider2-span");
+            d.addEventListener("click", function () {
+                t = !t, this.textContent = t ? "unlock" : "lock"
+            }), noUiSlider.create(o, {
+                start: 60,
+                animate: !1,
+                range: {
+                    min: 50,
+                    max: 100
+                }
+            }), noUiSlider.create(a, {
+                start: 80,
+                animate: !1,
+                range: {
+                    min: 50,
+                    max: 100
+                }
+            }), o.noUiSlider.on("update", function (e, n) {
+                r.innerHTML = e[n]
+            }), a.noUiSlider.on("update", function (e, n) {
+                l.innerHTML = e[n]
+            }), o.noUiSlider.on("change", n), a.noUiSlider.on("change", n), o.noUiSlider.on("slide", function (n, t) {
+                e(n[t], a)
+            }), a.noUiSlider.on("slide", function (n, t) {
+                e(n[t], o)
+            })
+        },
+        a = function () {
+            var e = document.getElementById("demo7");
+            demo7 = e;
+            noUiSlider.create(e, {
+                start: 0.34,
+                range: {
+                    min: 0,
+                    max: 1
+                },
+                pips: {
+                    mode: "values",
+                    values: [0, 1],
+                    density: 10
+                }
+            }), e.noUiSlider.on("change", function (n, t) {
+                //n[t] < 20 ? e.noUiSlider.set(20) : n[t] > 80 && e.noUiSlider.set(80)
+                if(n[t]==1){
+                    // if($(demo8).attr("lock") != "true"){
+                    //     demo8.noUiSlider.set(0);
+                    // }
+                    // if($(demo9).attr("lock") != "true"){
+                    //     demo9.noUiSlider.set(0);
+                    // }
+                    demo9.noUiSlider.set(0);
+                    demo8.noUiSlider.set(0);
+                }else{
+                    if($(demo8).attr("lock") == "true"){
+                        demo9.noUiSlider.set((1-n[t]-demo8.noUiSlider.get()));
+                    }
+                    else if($(demo9).attr("lock") == "true"){
+                        demo8.noUiSlider.set((1-n[t]-demo9.noUiSlider.get()));
+                    }else if($(demo8).attr("lock") == "true" && $(demo9).attr("lock") == "true"){
+                        e.noUiSlider.set(1-demo8.noUiSlider.get()-demo9.noUiSlider.get())
+                    }
+                }
+
+                //设置合计
+                total_qz();
+            });
+            for (var n = e.getElementsByClassName("noUi-handle"), t = [], i = 0; i < n.length; i++)
+                t[i] = document.createElement("div"), n[i].appendChild(t[i]);
+            t[0].className += "noUi-tooltip",
+                $(t[0]).attr("style","top:-30px");
+                t[0].innerHTML = "<span></span>",
+                t[0] = t[0].getElementsByTagName("span")[0],
+                e.noUiSlider.on("update", function (e, n) {
+                    t[n].innerHTML = "Value:"+e[n]
+                })
+        },
+        b = function () {
+            var e = document.getElementById("demo8");
+            demo8 = e;
+            noUiSlider.create(e, {
+                start: 0.32,
+                range: {
+                    min: 0,
+                    max: 1
+                },
+                pips: {
+                    mode: "values",
+                    values: [0, 1],
+                    density: 10
+                }
+            }), e.noUiSlider.on("change", function (n, t) {
+                //n[t] < 20 ? e.noUiSlider.set(20) : n[t] > 80 && e.noUiSlider.set(80)
+                if(n[t]==1){
+                    demo7.noUiSlider.set(0);
+                    demo8.noUiSlider.set(0);
+                }else{
+                    if($(demo7).attr("lock") == "true"){
+                        demo9.noUiSlider.set((1-n[t]-demo7.noUiSlider.get()));
+                    }
+                    else if($(demo9).attr("lock") == "true"){
+                        demo7.noUiSlider.set((1-n[t]-demo9.noUiSlider.get()));
+                    }else if($(demo7).attr("lock") == "true" && $(demo9).attr("lock") == "true"){
+                        e.noUiSlider.set(1-demo7.noUiSlider.get()-demo9.noUiSlider.get())
+                    }
+                }
+
+                //设置合计
+                total_qz();
+            });
+            for (var n = e.getElementsByClassName("noUi-handle"), t = [], i = 0; i < n.length; i++)
+                t[i] = document.createElement("div"), n[i].appendChild(t[i]);
+            t[0].className += "noUi-tooltip",
+                $(t[0]).attr("style","top:-30px");
+                t[0].innerHTML = "<span></span>",
+                t[0] = t[0].getElementsByTagName("span")[0],
+                e.noUiSlider.on("update", function (e, n) {
+                    t[n].innerHTML = "Value:"+e[n];
+                })
+        },
+        c = function () {
+            var e = document.getElementById("demo9");
+            demo9 = e;
+            noUiSlider.create(e, {
+                start: 0.34,
+                range: {
+                    min: 0,
+                    max: 1
+                },
+                pips: {
+                    mode: "values",
+                    values: [0, 1],
+                    density: 10
+                }
+            }), e.noUiSlider.on("change", function (n, t) {
+                //n[t] < 20 ? e.noUiSlider.set(20) : n[t] > 80 && e.noUiSlider.set(80)
+                if(n[t]==1){
+                    demo7.noUiSlider.set(0);
+                    demo9.noUiSlider.set(0);
+                }else{
+                    if($(demo7).attr("lock") == "true"){
+                        demo8.noUiSlider.set((1-n[t]-demo7.noUiSlider.get()));
+                    }
+                    else if($(demo8).attr("lock") == "true"){
+                        demo7.noUiSlider.set((1-n[t]-demo8.noUiSlider.get()));
+                    }else if($(demo7).attr("lock") == "true" && $(demo8).attr("lock") == "true"){
+                        e.noUiSlider.set(1-demo7.noUiSlider.get()-demo8.noUiSlider.get())
+                    }
+                }
+
+                //设置合计
+                total_qz();
+            });
+            for (var n = e.getElementsByClassName("noUi-handle"), t = [], i = 0; i < n.length; i++)
+                t[i] = document.createElement("div"), n[i].appendChild(t[i]);
+            t[0].className += "noUi-tooltip",
+                $(t[0]).attr("style","top:-30px");
+                t[0].innerHTML = "<span></span>",
+                t[0] = t[0].getElementsByTagName("span")[0],
+                e.noUiSlider.on("update", function (e, n) {
+                    t[n].innerHTML = "Value:"+e[n]
+                })
+        },
+        d = function () {
+            var e = document.getElementById("demo8");
+            noUiSlider.create(e, {
+                start: [40, 50],
+                connect: !0,
+                range: {
+                    min: 30,
+                    "30%": 40,
+                    max: 50
+                }
+            });
+            for (var n = e.getElementsByClassName("noUi-handle"), t = [], i = 0; i < n.length; i++)
+                t[i] = document.createElement("div"), n[i].appendChild(t[i]);
+            t[1].className += "noUi-tooltip",
+                t[1].innerHTML = "<span></span>",
+                t[1] = t[1].getElementsByTagName("span")[0],
+                    t[0].className += "noUi-tooltip",
+                    $(t[0]).attr("style","top:-30px");
+                    t[0].innerHTML = "<span></span>",
+                    t[0] = t[0].getElementsByTagName("span")[0],
+                e.noUiSlider.on("update", function (e, n) {
+                t[n].innerHTML = "Value:"+e[n]
+            })
+        };
+    return {
+        init: function () {
+            //e(),
+            //n(),
+            //t(),
+            //i(),
+            //o(),
+            a(), b(),c()
+                //d()
+        }
+    }
+}();
+jQuery(document).ready(function () {
+    ComponentsNoUiSliders.init();
+    wait_time_lock();
+    fh_xs_lock();
+    yy_cb_lock();
+    dopost();
+    line_numchange();
+    savFASubmit();
+    historyProjectClick();
+    iniltDataPicker();
+    iniltDataPicker_one();
+    iniltDataPicker_two();
+    depart_history_search_btn();
+    loaddataforhistorytable();
+    total_qz();
+    totalBus();
+});
+
+
+function line_numchange(){
+    $("#bus_line_num").change(function () {
+        if($(this).val()=="619"){
+            // $("#line_num_count").val("45");
+        }else if($(this).val()=="877"){
+            // $("#line_num_count").val("35");
+        }else{
+            // $("#line_num_count").val("0");
+        }
+    });
+}
+
+
+function wait_time_lock(){
+    $("#wait_time_lock").click(function () {
+        // console.log($(this).attr("lock"));
+        if($(this).attr("lock")=="false"){
+            $(this).attr("lock","true");
+            $(this).html("unlock");
+            $("#demo8").attr("lock","true").attr("disabled",true);
+            //$("#demo8").attr("lock","true");
+        }else{
+            $(this).attr("lock","false");
+            $(this).html("lock");
+            $("#demo8").attr("lock","false").removeAttr("disabled");
+        }
+    });
+}
+
+function total_qz(){
+    var a = parseFloat(demo7.noUiSlider.get())+parseFloat(demo8.noUiSlider.get())+parseFloat(demo9.noUiSlider.get());
+    $("#qz_total").html(a.toFixed(2));
+}
+
+
+function fh_xs_lock(){
+    $("#fh_xs_lock").click(function () {
+        // console.log($(this).attr("lock"));
+        if($(this).attr("lock")=="false"){
+            $(this).attr("lock","true");
+            $(this).html("unlock");
+            $("#demo7").attr("lock","true").attr("disabled",true);
+            //$("#demo8").attr("lock","true");
+        }else{
+            $(this).attr("lock","false");
+            $(this).html("lock");
+            $("#demo7").attr("lock","false").removeAttr("disabled");
+        }
+    });
+}
+
+
+function yy_cb_lock(){
+    $("#yy_cb_lock").click(function () {
+        // console.log($(this).attr("lock"));
+        if($(this).attr("lock")=="false"){
+            $(this).attr("lock","true");
+            $(this).html("unlock");
+            $("#demo9").attr("lock","true").attr("disabled",true);
+            //$("#demo8").attr("lock","true");
+        }else{
+            $(this).attr("lock","false");
+            $(this).html("lock");
+            $("#demo9").attr("lock","false").removeAttr("disabled");
+        }
+    });
+}
+
+function dopost(){
+    $("#post_form_syn").click(function () {
+
+        if(isNaN($("#maxDispatchGap").val()) == true){
+            alert("最大发车间隔必须为数字！");
+            return;
+        }
+        if($("#maxDispatchGap").val() <= "0"){
+            alert("最大发车间隔必须大于零！");
+            return;
+        }
+
+        if(isNaN($("#minDispatchGap").val()) == true){
+            alert("最小发车间隔必须为数字！");
+            return;
+        }
+        if(parseInt($("#minDispatchGap").val()) < 0){
+            alert("最小发车间隔必须大于等于零！");
+            return;
+        }
+
+        if(isNaN($("#numberOfUplinkBuses").val()) == true){
+            alert("上行车辆数必须为数字！");
+            return;
+        }
+        if(parseInt($("#numberOfUplinkBuses").val()) <= 0){
+            alert("上行车辆数必须大于零！");
+            return;
+        }
+
+        if(isNaN($("#numberOfDownlinkBuses").val()) == true){
+            alert("下行车辆数必须为数字！");
+            return;
+        }
+        if(parseInt($("#numberOfDownlinkBuses").val()) <= 0){
+            alert("下行车辆数必须大于零！");
+            return;
+        }
+
+        if($("#qz_total").html()!="1.00"){
+            alert("权重合计必须等于1！");
+            return;
+        }
+
+        if($("#bus_line_num").val() == "619" && (parseInt($("#numberOfUplinkBuses").val())+parseInt($("#numberOfDownlinkBuses").val())) > 45){
+            alert("线路619 总共车辆数为 45！");
+            return;
+        }
+
+        if($("#bus_line_num").val() == "877" && (parseInt($("#numberOfUplinkBuses").val())+parseInt($("#numberOfDownlinkBuses").val())) > 35){
+            alert("线路877 总共车辆数为 35！");
+            return;
+        }
+
+        var search_time = $("#blrz-entry-date-start-xx").val();
+        createTime = search_time;
+        //$("#post_form_syn").attr('disabled',true);
+        App.blockUI({boxed:!0});
+        setTimeout(function(){
+
+            // requestId = 428
+            // getSyninfo(requestId);
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                async: false,
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                url: 'schedulesremote/'+$("#bus_line_num").val(),
+                data:JSON.stringify({"numberOfBuses":$("#line_num_count").val(),"minDispatchGap":$("#minDispatchGap").val(),"maxDispatchGap":$("#maxDispatchGap").val(),"numberOfUplinkBuses":$("#numberOfUplinkBuses").val(),"numberOfDownlinkBuses":$("#numberOfDownlinkBuses").val(),"startTime":$("#blrz-entry-date-start-xx").val(),"endTime":$("#blrz-entry-date-start-xx").val(),"objectivesDtos":[{"objectiveType":"WAITING_TIME","value":demo8.noUiSlider.get()},
+                    {"objectiveType":"LOAD_FACTOR","value":demo7.noUiSlider.get()},
+                    {"objectiveType":"OPERATION_COST","value":demo9.noUiSlider.get()}]}),
+                success: function (result) {
+                    // debug.log(result)
+                    //{"rcode":"0","desc":"","page":{"content":[{"accGuid":"e532f4cdb02a43d3855dfa9bdefec578"}],"totalElements":1}}
+                    console.log(result);
+                    if(result.requestId != null){
+                        //获取数据
+                        // if(result.requestId=="0" &&
+                        //     ($("#line_num_count").val()==45 &&
+                        //     $("#minDispatchGap").val()==0 &&
+                        //     $("#maxDispatchGap").val()==20) ||
+                        //
+                        //     ($("#line_num_count").val()==35 &&
+                        //         $("#minDispatchGap").val()==0 &&
+                        //         $("#maxDispatchGap").val()==20)){
+                        //
+                        // }
+                        //设置参数。方便保存
+                        $("lineNum").val($("#bus_line_num").val());
+                        $("#numberOfBuses_s").val($("#line_num_count").val());
+                        $("#minDispatchGap_s").val($("#minDispatchGap").val());
+                        $("#maxDispatchGap_s").val($("#maxDispatchGap").val());
+                        $("#wating_time_s").val(demo8.noUiSlider.get());
+                        $("#load_factory_s").val(demo7.noUiSlider.get());
+                        $("#operation_cost_s").val(demo9.noUiSlider.get());
+                        $("#projectName").val($("#blrz-entry-date-start-xx").val()+"_"+demo8.noUiSlider.get()+"_"+demo7.noUiSlider.get()+"_"+demo9.noUiSlider.get());
+                        $("#projectDate").val($("#blrz-entry-date-start-xx").val());
+                        var requestId = result.requestId;
+                        // requestId = 426
+                        getSyninfo(requestId);
+                    }else{
+                        alert(result.error);
+                        // $("#post_form_syn").removeAttr('disabled');
+                        App.unblockUI();
+                    }
+                },
+                error: function(data) {
+                    alert("error:"+data.responseText);
+                    // $("#post_form_syn").removeAttr('disabled');
+                    App.unblockUI();
+                }
+
+            });
+        },500);
+    });
+}
+
+function getSyninfo(requestId){
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        async: false,
+        cache: false,
+        //contentType: "application/json; charset=utf-8",
+        url: 'schedule-requestsremote/'+requestId+"?busNum="+$("#line_num_count").val(),
+        // data:JSON.stringify([{"objectiveType":"WAITING_TIME","value":demo8.noUiSlider.get()},
+        //     {"objectiveType":"LOAD_FACTOR","value":demo7.noUiSlider.get()},
+        //     {"objectiveType":"OPERATION_COST","value":demo9.noUiSlider.get()}]),
+        success: function (result) {
+            // debug.log(result)
+            //{"rcode":"0","desc":"","page":{"content":[{"accGuid":"e532f4cdb02a43d3855dfa9bdefec578"}],"totalElements":1}}
+            // console.log(result);
+            $("#line_view").empty();
+            if(result[0].code == 200){
+                //获取数据
+                // var total_all="";
+                bus_depart_list(result,true);
+                // oTableresource.data=result[0];
+                //oTableresource.fnSettings().data = result[0],
+                  //  oTableresource.fnDraw();
+                // $("#post_form_syn").removeAttr('disabled');
+                App.unblockUI();
+            }else{
+                alert(result[0].error);
+                // $("#post_form_syn").removeAttr('disabled');
+                App.unblockUI();
+            }
+        },
+        error: function(data) {
+            alert("网络连接异常请重试，error:"+data.responseText);
+            // $("#post_form_syn").removeAttr('disabled');
+            App.unblockUI();
+        }
+
+    });
+}
+
+/**
+ * 显示排班列表
+ * @param data
+ */
+var viewData;
+function bus_depart_list(result,showSaveBtn,projectName){
+    $("#line_view").empty();
+    var carNum = result[0].aaData.length
+    $.each(result,function (i, item) {
+        // var label = '<label class="col-md-2 control-label">'+item.id+' 发车时间表</label>';
+        // var table = '<table class="table table-striped table-bordered table-hover table-checkable order-column dataTable no-footer"><tr class="gradeX odd">';
+        // $.each(item.departureTimes,function (i,item) {
+        //     table+='<td>'+item+'</td>'
+        // });
+        // table+='</table></tr>'
+        //    total_all+= label+table;
+        var table="<div class=\"portlet box blue\">\n" +
+            "                                                    <div class=\"portlet-title\">\n" +
+            "                                                        <div class=\"caption\">\n" +
+            "                                                            <i class=\"fa fa-comments\"></i>" ;
+            if(showSaveBtn){
+                table+="<a class='btn btn-primary btn-sm' href='#' onclick='openNew("+item.lineNum+")'>"+$("#blrz-entry-date-start-xx").val()+"  "+item.lineNum+" 发车时间表(点击查看分析)&nbsp;&nbsp;&nbsp;车辆数："+carNum+"&nbsp;&nbsp;&nbsp;最优车辆数："+item.perfectTotal+"</a>" ;
+            }else{
+                if(projectName != undefined){
+                    table+="<a class='btn btn-primary btn-sm' href='#' onclick='openNew("+item.lineNum+")'>"+item.lineNum+" 历史发车时间表(点击查看分析)&nbsp;&nbsp;&nbsp;方案名称："+projectName+"&nbsp;&nbsp;&nbsp;车辆数："+carNum+"</a>" ;
+                }else{
+                    table+="<a class='btn btn-primary btn-sm' href='#' onclick='openNew("+item.lineNum+")'>"+item.lineNum+" 发车时间表(点击查看分析) </a>" ;
+                }
+            }
+            if(showSaveBtn){
+                table+="<a class='btn btn-primary btn-sm' href='#responsive' data-toggle='modal'  onclick='saveFa("+JSON.stringify(result)+","+item.lineNum+")'>保存方案</a>"
+                viewData = JSON.stringify(result);
+            }
+            table+="</div>\n" +
+            "                                                        <div class=\"tools\">\n" +
+            "                                                            <a title=\"\" class=\"collapse\" href=\"javascript:;\" data-original-title=\"\"> </a>\n" +
+            "                                                        </div>\n" +
+            "                                                    </div>\n" +
+            "<div class=\"portlet-body\" style=\"display: block;\">" +
+            "   <table class=\"table table-striped table-bordered table-hover table-checkable order-column dataTable no-footer\" id=\"sample_"+i+"\" role=\"grid\" aria-describedby=\"sample_1_info\"> </table>"+
+            "</div>";
+
+        table+="</div>\n";
+        // console.log(table);
+        // total_all+=table;
+        $("#line_view").append(table);
+        loaddataforresourcetable("sample_"+i,result[i]);
+    });
+}
+
+
+/**
+ * 打开线路分析页面
+ * @param lineNum
+ */
+// function openNew(lineNum) {
+//     // var openWin = window.open("viewSyn");
+//     // var openWin = window.open("viewSyn");
+//     // setTimeout(function(){ openWin.document.title = lineNum+'线路分析'; }, 100);
+//
+//     var openWin = window.open("/CqBus/SynData/viewSyn?createTime="+createTime+"&lineNum="+lineNum+"&resolution=FIVE_MINUTE");
+//     setTimeout(function(){ openWin.document.title = lineNum+'线路分析'; }, 100);
+// }
+
+/**
+ * 打开线路分析页面
+ * @param lineNum
+ */
+function openNew(lineNum){
+    var map = eval(JSON.parse(viewData)[0].aaData);
+    var vv = "";
+    for (var key in map) {
+        var a = map[key];
+        for (var k in a) {
+            //alert(k + '---' + a[k]);
+            vv+= k+"="+a[k]+",";
+        }
+    }
+        // console.log(vv);
+    var newWin = window.open(),
+        formStr = '';
+    //设置样式为隐藏，打开新标签再跳转页面前，如果有可现实的表单选项，用户会看到表单内容数据
+    //http://localhost:8985
+    var action = "http://120.78.150.146:8081/CqBus/SynData/viewSynPost?createTimeV="+createTime+"&lineNumV="+lineNum;
+    // var action = "http://localhost:8985/CqBus/SynData/viewSynPost?createTimeV="+createTime+"&lineNumV="+lineNum;
+    formStr = '<form style="visibility:hidden;" method="POST" action="'+action+'">' +
+    // formStr = '<form style="visibility:hidden;" method="POST" action="/CqBus/SynData/viewSynPost">' +
+        '<input type="hidden" name="createTime" value="' + createTime + '" />' +
+        '<input type="hidden" name="lineNum" value="' + lineNum + '" />' +
+        '<input type="hidden" name="resolution" value="FIVE_MINUTE" />' +
+        '<input type="hidden" name="viewData" value="'+vv+'"/>' +
+        '</form>';
+
+    newWin.document.body.innerHTML = formStr;
+    newWin.document.forms[0].submit();
+
+    return newWin;
+}
+
+
+/**
+ * 历史发车效果
+ */
+function openNewResult(){
+    var createTime = $("#blrz-entry-date-start-result").val();
+    if(createTime == null || createTime ==""){
+        alert("请选择时间！");
+        return;
+    }
+    var lineNum = $("#lineNum_search_result").val();
+    var openWin = window.open("/CqBus/SynData/viewSyn?createTime="+createTime+"&lineNum="+lineNum+"&resolution=FIVE_MINUTE");
+    setTimeout(function(){ openWin.document.title = lineNum+'线路分析'; }, 100);
+}
+
+
+/**
+ * 保存方案点击事件
+ * @param data
+ */
+function saveFa(data,lineNum){
+    bus_depart_project_data = data;
+    $("#projectValue").val(JSON.stringify(data));
+    $("#lineNum").val(lineNum);
+    console.log(data)
+}
+
+/**
+ * 保存方案
+ */
+function savFASubmit(){
+    $("#bus_depart_project_bt_save").click(function () {
+        // $("#responsive").modal('hide');
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            async: false,
+            cache: false,
+            url: './SynData/saveBusDepartProject',
+            data:$('#bus_depart_project_form').serializeJson(),
+            success: function (result) {
+                // debug.log(result)
+                //{"rcode":"0","desc":"","page":{"content":[{"accGuid":"e532f4cdb02a43d3855dfa9bdefec578"}],"totalElements":1}}
+                // console.log(result);
+                if(result.rcode =="0"){
+                    alert("保存成功！");
+                    //$("#bus_depart_project_form")[0].reset();
+                    $("#responsive").modal('hide')
+                }else{
+                    alert(result.desc);
+                }
+            },
+            error: function(data) {
+                alert("error:"+data.responseText);
+            }
+
+        });
+    });
+}
+
+
+/**
+ * 查看历史方案单击事件
+ */
+function historyProjectClick(){
+    $("#view_hispty_project").click(function () {
+        // $("#history_h4").html($("#bus_line_num").val()+"历史方案");
+        $("#lineNum_search").val($("#bus_line_num").val());
+        oTableresource_histpry_projects.fnDraw();
+        // $.ajax({
+        //     type: "POST",
+        //     dataType: "json",
+        //     async: false,
+        //     cache: false,
+        //     url: './SynData/findBusDepartProjectByPage',
+        //     data:$('#search_hisptory_project_form').serializeJson(),
+        //     success: function (result) {
+        //         // debug.log(result)
+        //         //{"rcode":"0","desc":"","page":{"content":[{"accGuid":"e532f4cdb02a43d3855dfa9bdefec578"}],"totalElements":1}}
+        //         // console.log(result);
+        //         if(result.rcode =="0"){
+        //             loaddataforhistorytable(result.page.content[0]);
+        //             regist_viw_history_btn_click();
+        //         }else{
+        //             alert(result.desc);
+        //         }
+        //     },
+        //     error: function(data) {
+        //         alert("error:"+data.responseText);
+        //     }
+        //
+        // });
+    });
+}
+
+
+
+var oTableresource;
+function loaddataforresourcetable(tname,data){
+    // console.log(JSON.stringify(data.aaData));
+    //开始加载数据
+    var numSn = 0;
+    oTableresource = $('#'+tname).dataTable({
+        "bAutoWidth": true,
+        "data":data.aaData,
+        "bDestroy": true,
+        "bFilter":false,
+        "pageLength": 100,
+        "aaSorting": [[ 3, "asc" ]],
+        "aoColumns" : [
+            {
+                "sTitle": "序号",
+                "mDataProp" : null,
+                "sName": null,
+                "searchable": false,
+                "orderable": false
+            },
+            // {
+            //     "sTitle": "代号",
+            //     "mDataProp" : "code",
+            //     "sName": "code",
+            //     "bSortable": false,
+            // },
+            {
+                "sTitle": "线路区间",
+                "mDataProp" : "lineRange",
+                "sName": "lineRange",
+                "bSortable": true,
+            }, {
+                "sTitle": "发车地点",
+                "mDataProp" : "startStation",
+                "sName": "startStation",
+                "bSortable": true,
+            }, {
+                "sTitle": "圈(上)1",
+                "mDataProp" : "up1",
+                "sName": "up1",
+                "bSortable": true,
+                "sType":"null-percent"
+                // "mRender": function(data, type, full){
+                //     if(data == null){
+                //         return "——";
+                //     }else{
+                //         return data;
+                //     }
+                // }
+            },  {
+                "sTitle": "圈(下)1",
+                "mDataProp" : "down1",
+                "sName": "down1",
+                "bSortable": true,
+            }, {
+                "sTitle": "圈(上)2",
+                "mDataProp" : "up2",
+                "sName": "up2",
+                "bSortable": true,
+            }, {
+                "sTitle": "圈(下)2",
+                "mDataProp" : "down2",
+                "sName": "down2",
+                "bSortable": true
+            },{
+                "sTitle": "圈(上)3",
+                "mDataProp" : "up3",
+                "sName": "up3",
+                "bSortable": true
+            },{
+                "sTitle": "圈(下)3",
+                "mDataProp" : "down3",
+                "sName": "down3",
+                "bSortable": true
+            }, {
+                "sTitle": "圈(上)4",
+                "mDataProp" : "up4",
+                "sName": "up4",
+                "bSortable": true
+            },{
+                "sTitle": "圈(下)4",
+                "mDataProp" : "down4",
+                "sName": "down4",
+                "bSortable": true
+            },{
+                "sTitle": "圈(上)5",
+                "mDataProp" : "up5",
+                "sName": "up5",
+                "bSortable": true
+            },{
+                "sTitle": "圈(下)5",
+                "mDataProp" : "down5",
+                "sName": "down5",
+                "bSortable": true
+            },{
+                "sTitle": "圈(上)6",
+                "mDataProp" : "up6",
+                "sName": "up6",
+                "bSortable": true
+            },{
+                "sTitle": "圈(下)6",
+                "mDataProp" : "down6",
+                "sName": "down6",
+                "bSortable": true
+            },{
+                "sTitle": "圈(上)7",
+                "mDataProp" : "up7",
+                "sName": "up7",
+                "bSortable": true
+            },{
+                "sTitle": "圈(下)7",
+                "mDataProp" : "down7",
+                "sName": "down7",
+                "bSortable": true
+            }
+
+        ],
+        "oLanguage": {
+            "sProcessing": "正在加载中......",
+            "sLengthMenu": "每页显示 _MENU_ 条记录",
+            "sZeroRecords": "对不起，查询不到相关数据！",
+            "sEmptyTable": "表中无数据存在！",
+            "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+            "sInfoEmpty" : "显示0到0条记录",
+            "sInfoFiltered": "数据表中共为 _MAX_ 条记录",
+            "sSearch": "搜索",
+            "oPaginate": {
+                "sFirst": "首页",
+                "sPrevious": "上一页",
+                "sNext": "下一页",
+                "sLast": "末页"
+            }
+        },
+        "fnInitComplete": function(oSettings, json) {
+
+        },
+        "fnStateLoad": function (oSettings) {
+
+        },
+        "fnPreDrawCallback":function(){
+            //添加序号
+            var api = this.api();
+            var startIndex= api.context[0]._iDisplayStart;//获取到本页开始的条数
+            api.column(0).nodes().each(function(cell, i) {
+                cell.innerHTML = startIndex + i + 1;
+            });
+        },
+        "fnDrawCallback":function(data){
+            //加载完成
+            //  var modelel  = $("#set_resourcereload").parents(".portlet");
+            // App.unblockUI(modelel);
+        }
+    });
+
+
+    $("tfoot  input").keyup( function () {
+        /* Filter on the column (the index) of this element */
+        oTableresource.fnFilter( this.value, $("tfoot  input").index(this) );
+    } );
+
+
+    /*
+     * Support functions to provide a little bit of 'user friendlyness' to the textboxes in
+     * the footer
+     */
+    $("tfoot  input").each( function (i) {
+        asInitVals[i] = this.value;
+    } );
+
+    $("tfoot  input").focus( function () {
+        if ( this.className == "search_init" )
+        {
+            this.className = "";
+            this.value = "";
+        }
+    } );
+
+    $("tfoot  input").blur( function (i) {
+        if ( this.value == "" )
+        {
+            this.className = "search_init";
+            this.value = asInitVals[$("tfoot  input").index(this)];
+        }
+    } );
+}
+
+var oTableresource_histpry_projects;
+function loaddataforhistorytable(){
+    // console.log(JSON.stringify(data.aaData));
+    //开始加载数据
+    oTableresource_histpry_projects = $("#history_project_table").dataTable({
+        //"data":data.aaData,
+        "bServerSide": true,
+        // "bDestroy": true,
+        "bFilter":false,
+        "bAutoWidth":true,
+        "sAjaxSource": './SynData/findBusDepartProjectByPage',
+        "aaSorting": [[ 1, "asc" ]],
+        "aoColumns" : [
+            {
+                "sTitle": "方案名称",
+                "mDataProp" : "projectName",
+                "sName": "projectName",
+                "sWidth": 200,
+                "bSortable": false,
+            }, {
+                "sTitle": "创建时间",
+                "mDataProp" : "createTime",
+                "sName": "createTime",
+                "bSortable": false,
+            },{
+                "sTitle": "方案时间",
+                "mDataProp" : "projectDate",
+                "sName": "projectDate",
+                "bSortable": false,
+            },{
+                "sTitle": "等待时间系数",
+                "mDataProp" : "watingTime",
+                "sName": "watingTime",
+                "bSortable": false,
+            }, {
+                "sTitle": "负荷系数",
+                "mDataProp" : "loadFactory",
+                "sName": "loadFactory",
+                "bSortable": false,
+            }, {
+                "sTitle": "运营成本系数",
+                "mDataProp" : "operationCost",
+                "sName": "operationCost",
+                "bSortable": false,
+            }, {
+                "sTitle": "操作",
+                "mDataProp" : null,
+                "sName": null,
+                "bSortable": false,
+                "render": function(data, type, full){
+                    // var val = data.projectValue;
+                    //                     // valx = JSON.parse(val)
+                    //                     // project_name = data.projectName;
+                    //                     // console.log(data);
+                    // return '<a class=" btn green btn-outline sbold" href="#" id="view_hispty" onclick="bus_depart_list_histpry(valx,project_name)" data-dismiss="modal">查看</a>';
+                    return '<a class="btn green btn-outline sbold view_hispty" href="#" id="view_hispty" data-dismiss="modal">查看</a>';
+                }
+            }
+
+        ],
+        "oLanguage": {
+            "sProcessing": "正在加载中......",
+            "sLengthMenu": "每页显示 _MENU_ 条记录",
+            "sZeroRecords": "对不起，查询不到相关数据！",
+            "sEmptyTable": "表中无数据存在！",
+            "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+            "sInfoEmpty" : "显示0到0条记录",
+            "sInfoFiltered": "数据表中共为 _MAX_ 条记录",
+            "sSearch": "搜索",
+            "oPaginate": {
+                "sFirst": "首页",
+                "sPrevious": "上一页",
+                "sNext": "下一页",
+                "sLast": "末页"
+            }
+        },
+        "fnInitComplete": function(oSettings, json) {
+
+        },
+        "fnStateLoad": function (oSettings) {
+
+        },
+        "fnPreDrawCallback":function(){
+            //开始加载数据
+            //  var modelel  = $("#set_resourcereload").parents(".portlet");
+            // App.blockUI(modelel);
+        },
+        "fnDrawCallback":function(data){
+            // console.log(data);
+            // var json=jQuery.parseJSON(data.jqXHR.responseText);
+            // return json.page.content;
+            regist_viw_history_btn_click();
+        }
+    });
+
+    $("tfoot  input").keyup( function () {
+        /* Filter on the column (the index) of this element */
+        oTableresource.fnFilter( this.value, $("tfoot  input").index(this) );
+    } );
+
+
+    /*
+     * Support functions to provide a little bit of 'user friendlyness' to the textboxes in
+     * the footer
+     */
+    $("tfoot  input").each( function (i) {
+        asInitVals[i] = this.value;
+    } );
+
+    $("tfoot  input").focus( function () {
+        if ( this.className == "search_init" )
+        {
+            this.className = "";
+            this.value = "";
+        }
+    } );
+
+    $("tfoot  input").blur( function (i) {
+        if ( this.value == "" )
+        {
+            this.className = "search_init";
+            this.value = asInitVals[$("tfoot  input").index(this)];
+        }
+    } );
+}
+
+/**
+ * 显示保存方案的排班信息
+ * @param data
+ */
+function bus_depart_list_histpry(data,projectName){
+    console.log(projectName);
+    bus_depart_list(data,false,projectName);
+}
+
+/**
+ * 查看历史排班按钮单击事件
+ */
+var createTime;
+var lineNum;
+function regist_viw_history_btn_click(){
+    $('#history_project_table a.view_hispty').on('click', function (e) {
+        e.preventDefault();
+
+        // if(this.innerHTML == "注销"){
+        //     if (confirm("是否要注销该资源 ?") == false) {
+        //         return;
+        //     }
+        // }
+
+        var nRow = $(this).parents('tr')[0];
+        var aData = oTableresource_histpry_projects.fnGetData(nRow);
+        // console.log(aData);
+        projectName = aData.projectName;
+        data = JSON.parse(aData.projectValue);
+        bus_depart_list(data,false,projectName);
+        viewData = aData.projectValue;
+
+        createTime = aData.createTime;
+        lineNum = aData.lineNum;
+        // console.log(createTime);
+        createTime = createTime.substring(0,10)
+        console.log(createTime);
+
+    });
+}
+
+
+/**
+ * 初始化时间空间
+ */
+function iniltDataPicker(){
+    $("#blrz-entry-date-start").datetimepicker({//选择年月日
+        format: 'yyyy-mm-dd',
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,//显示‘今日’按钮
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,  //Number, String. 默认值：0, 'hour'，日期时间选择器所能够提供的最精确的时间选择视图。
+
+        clearBtn:true,//清除按钮
+        initialDate:new Date(),
+
+        forceParse: 0
+    });
+    //getNowData("blrz-entry-date-start");
+}
+
+
+/**
+ * 初始化时间空间
+ */
+function iniltDataPicker_one(){
+    $("#blrz-entry-date-start-result").datetimepicker({//选择年月日
+        format: 'yyyy-mm-dd',
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,//显示‘今日’按钮
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,  //Number, String. 默认值：0, 'hour'，日期时间选择器所能够提供的最精确的时间选择视图。
+
+        clearBtn:true,//清除按钮
+        endDate:new Date(),
+        initialDate: new Date(),
+
+        forceParse: 0
+    });
+    getNowData("blrz-entry-date-start-result");
+}
+
+
+/**
+ * 初始化时间空间
+ */
+function iniltDataPicker_two(){
+    $("#blrz-entry-date-start-xx").datetimepicker({//选择年月日
+        format: 'yyyy-mm-dd',
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,//显示‘今日’按钮
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,  //Number, String. 默认值：0, 'hour'，日期时间选择器所能够提供的最精确的时间选择视图。
+
+        clearBtn:true,//清除按钮
+        //限定时间只能选择当天及以后
+        startDate:new Date(),
+        initialDate:new Date(),
+
+        forceParse: 0
+    });
+    getNowData("blrz-entry-date-start-xx");
+}
+
+function getNowData(id){
+    var myDate = new Date();
+//获取当前年
+    var year=myDate.getFullYear();
+//获取当前月
+    var month=myDate.getMonth()+1;
+    if(month < 10){
+        month = "0"+month;
+    }
+//获取当前日
+    var date=myDate.getDate();
+    if(date < 10){
+        date = "0"+date;
+    }
+    $("#"+id).val(year+"-"+month+"-"+date);
+}
+
+function depart_history_search_btn(){
+    $("#bus_depart_project_bt_seach").click(function () {
+        oTableresource_histpry_projects.fnSettings().sAjaxSource = './SynData/findBusDepartProjectByPage?searchTime='+$("#blrz-entry-date-start").val(),
+            oTableresource_histpry_projects.fnDraw();
+        // $.ajax({
+        //     type: "POST",
+        //     dataType: "json",
+        //     async: false,
+        //     cache: false,
+        //     url: './SynData/findBusDepartProjectByPage',
+        //     data:$('#search_hisptory_project_form').serializeJson(),
+        //     success: function (result) {
+        //         // debug.log(result)
+        //         //{"rcode":"0","desc":"","page":{"content":[{"accGuid":"e532f4cdb02a43d3855dfa9bdefec578"}],"totalElements":1}}
+        //         // console.log(result);
+        //         if(result.rcode =="0"){
+        //             // loaddataforhistorytable(result.page.content[0]);
+        //             oTableresource_histpry_projects.fnSettings().sAjaxSource = './SynData/findBusDepartProjectByPage?searchTime='+$("#blrz-entry-date-start").val(),
+        //                 oTableresource_histpry_projects.fnDraw();
+        //             regist_viw_history_btn_click();
+        //         }else{
+        //             alert(result.desc);
+        //         }
+        //     },
+        //     error: function(data) {
+        //         alert("error:"+data.responseText);
+        //     }
+        //
+        // });
+    });
+}
+
+
+function totalBus(){
+
+    $("#line_num_count").val(parseInt($("#numberOfUplinkBuses").val())+parseInt($("#numberOfDownlinkBuses").val()));
+
+    $("#numberOfUplinkBuses").change(function () {
+        $("#line_num_count").val(parseInt($("#numberOfUplinkBuses").val())+parseInt($("#numberOfDownlinkBuses").val()));
+    });
+
+    $("#numberOfDownlinkBuses").change(function () {
+        $("#line_num_count").val(parseInt($("#numberOfUplinkBuses").val())+parseInt($("#numberOfDownlinkBuses").val()));
+    });
+}
+
+
+

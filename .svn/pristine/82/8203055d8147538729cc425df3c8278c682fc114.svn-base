@@ -1,0 +1,22 @@
+debug=true
+spring.profiles.active=dev
+spring.application.name=CqBus
+
+
+#thymeleaƒ£∞Â≈‰÷√
+spring.thymeleaf.prefix=/
+spring.thymeleaf.suffix=.html
+spring.thymeleaf.mode=LEGACYHTML5
+spring.thymeleaf.encoding=UTF-8
+spring.thymeleaf.content-type=text/html
+spring.thymeleaf.cache=false
+spring.resources.chain.strategy.content.enabled=true
+spring.resources.chain.strategy.content.paths=/**
+
+#max file and request size
+spring.http.multipart.max-file-size=10MB
+spring.http.multipart.max-request-size=11MB
+
+#PhysicalNamingStrategyStandardImpl
+spring.jpa.hibernate.naming.implicit-strategy=org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl

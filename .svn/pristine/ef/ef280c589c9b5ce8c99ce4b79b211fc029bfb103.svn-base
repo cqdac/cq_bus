@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html style="height: 100%" xmlns:th="http://www.w3.org/1999/xhtml">
+   <head>
+       <meta charset="utf-8">
+       <link rel="shortcut icon" href="favicon.ico" />
+   </head>
+   <body style="height: 100%; margin: 0">
+       <div style="text-align: center">
+           <label id="line_num">线路：</label>
+           <label id="data_search">日期：</label>
+       </div>
+       <div id="container" style="height: 100%"></div>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+       <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+       <script th:inline="javascript">
+
+           //获取url中的参数
+           function getUrlParam(name) {
+               var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+               var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+               if (r != null) return unescape(r[2]); return null; //返回参数值
+           }
+
+           var analysisResult =[[${analysisResult}]];
+           console.log(analysisResult);
+           var busCounts = analysisResult.busCounts;
+           var kCounts = analysisResult.kCounts;
+           var maxBusCount = analysisResult.maxBusCount;
+           var maxKCount = analysisResult.maxkCount;
+
+           $("#line_num").html("线路："+getUrlParam("lineNum"));
+           $("#data_search").html("日期："+getUrlParam("createTime"));
+       </script>
+       <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+app.title = '多 Y 轴示例';
+
+var colors = ['#5793f3', '#d14a61', '#675bba','#006400'];
+
+option = {
+    color: colors,
+
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'cross'
+        }
+    },
+    grid: {
+        right: '20%'
+    },
+    toolbox: {
+        feature: {
+            dataView: {show: true, readOnly: false},
+            restore: {show: true},
+            saveAsImage: {show: true}
+        }
+    },
+    legend: {
+        data:['发车班次','客流量','总运能','匹配率']
+    },
+    xAxis: [
+        {
+            type: 'category',
+            axisTick: {
+                alignWithLabel: true
+            },
+            data: ['5:00','6:00','7:00','8:00','9:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00']
+        }
+    ],
+    yAxis: [
+         {
+            type: 'value',
+            name: '发车班次',
+            min: 0,
+            max: maxBusCount,
+            position: 'left',
+            axisLine: {
+                lineStyle: {
+                    color: colors[0]
+                }
+            },
+            axisLabel: {
+                formatter: '{value} 辆'
+            }
+        },
+           
+        {
+            type: 'value',
+            name: '客流量',
+            min: 0,
+            max: maxKCount,
+            position: 'right',
+            axisLine: {
+                lineStyle: {
+                    color: colors[2]
+                }
+            },
+            axisLabel: {
+                formatter: '{value} 人'
+            }
+        },
+        {
+            type: 'value',
+            name: '匹配率',
+            min: 0,
+            max: 120,
+            position: 'right',
+            offset: 80,
+            axisLine: {
+                lineStyle: {
+                    color: colors[3]
+                }
+            },
+            axisLabel: {
+                formatter: '{value} %'
+            }
+        
+        }
+    ],
+    series: [
+        {
+            name:'发车班次',
+            type:'bar',
+            // data:[30, 36, 35, 30, 25, 15, 20, 15, 15, 20, 30, 35]
+            data:busCounts
+        },
+         {
+            name:'总运能',
+            type:'line',
+            yAxisIndex: 2,
+            data:[70, 75, 95, 100, 95, 70, 80, 75, 85, 75, 90, 80,70,79,90,98,90,92]
+        },
+        {
+            name:'客流量',
+            type:'bar',
+            yAxisIndex: 1,
+            // data:[220, 230, 180, 150, 130, 100, 90, 110, 120, 120, 180, 220]
+            data:kCounts
+        },
+        {
+            name:'匹配率',
+            type:'line',
+            yAxisIndex: 2,
+            data:[80, 80, 70, 80, 70, 80, 90, 80,80, 90, 80, 85,80,70,85,77,90,83]
+        }
+        
+       
+    ]
+};
+;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+   </body>
+</html>
